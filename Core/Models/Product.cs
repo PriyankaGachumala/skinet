@@ -1,10 +1,16 @@
 namespace Core.Models
 {
-    public class Product
+    public class Product : BaseEntity
     {
-        public int Id { get; set; }
-        //considers as the primary key of the table. Auto generates
         public string Name { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        public string ImageUrl { get; set; }
+        //ProductType is related entities
+        public ProductType ProductType { get; set; }
+        public int ProductTypeId { get; set; }
+        public ProductBrand ProductBand { get; set; }
+        public int ProductBrandId { get; set; }
 
     }
 }
