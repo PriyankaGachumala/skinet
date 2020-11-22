@@ -9,7 +9,7 @@ namespace Core.Models
         //ProductType is related entities
         public ProductType ProductType { get; set; }
         public int ProductTypeId { get; set; }
-        public ProductBrand ProductBand { get; set; }
+        public ProductBrand ProductBrand { get; set; }
         public int ProductBrandId { get; set; }
 
     }

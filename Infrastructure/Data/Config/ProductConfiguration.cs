@@ -13,7 +13,7 @@ namespace Infrastructure.Data.Config
             builder.Property(p => p.Description).IsRequired().HasMaxLength(180);
             builder.Property(p => p.Price).HasColumnType("decimal(18,2)");
             builder.Property(p => p.ImageUrl).IsRequired();
-            builder.HasOne(brand => brand.ProductBand).WithMany().HasForeignKey(p => p.ProductBrandId);
+            builder.HasOne(brand => brand.ProductBrand).WithMany().HasForeignKey(p => p.ProductBrandId);
             builder.HasOne(type => type.ProductType).WithMany().HasForeignKey(p => p.ProductTypeId);
         }
     }
