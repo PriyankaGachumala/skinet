@@ -7,6 +7,7 @@ using Core.Models;
 using Core.Specifications;
 using CoreAPI.DTO;
 using CoreAPI.Errors;
+using CoreAPI.Helpers;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,12 +33,15 @@ namespace CoreAPI.Controllers
 
         //action result is generally a hhtp status code which we get in return. like 200,400
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<ProductToReturn>>> GetProducts()
+        public async Task<ActionResult<Pagination<ProductToReturn>>> GetProducts([FromQuery] ProductSpecsParams productParams)
         {
-            var spec = new ProductsWithTypesAndBrandsSpecification();
+            var spec = new ProductsWithTypesAndBrandsSpecification(productParams);
+            var countSpec = new ProductWithFiltersForCountSpecification(productParams);
+            var totalItems = await _productsRepo.CountAsync(countSpec);
             //will select all products from products table and will get stored in products variable
             var products = await _productsRepo.ListAsync(spec);
-            return Ok(_mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturn>>(products));
+            var data = _mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductToReturn>>(products);
+            return Ok(new Pagination<ProductToReturn>(productParams.PageIndex, productParams.PageSize, totalItems, data));
         }
 
         [HttpGet("{id}")]
