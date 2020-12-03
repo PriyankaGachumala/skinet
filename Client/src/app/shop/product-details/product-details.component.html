@@ -1,0 +1,26 @@
+<div class="d-md-flex h-md-100" *ngIf="product">
+
+    <!-- First Half -->
+
+    <div class="col-md-6 p-0 bg-indigo h-md-100">
+        <div class="text-white d-md-flex align-items-center h-100 p-5 text-center justify-content-center">
+            <div class="logoarea pt-5 pb-5">
+                <img [src]="product.imageUrl" alt="product.name">
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Half -->
+
+    <div class="d-flex flex-column pt-5 pb-5">
+        <h3 class="mb-3">{{product.name}}</h3>
+        <span class="h3 mb-3">{{product.price | currency}}</span>
+        <p>{{product.description}}</p>
+        <div>
+            <button type="button" class="btn btn-block btn-outline-secondary">Add to cart <i
+                    class="fa fa-cart-plus"></i></button>
+        </div>
+
+    </div>
+
+</div>
